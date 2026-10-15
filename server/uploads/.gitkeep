@@ -1,0 +1,3 @@
+# This file keeps the uploads directory tracked in git.
+# Uploaded files themselves are gitignored.
+# In production, replace local file storage with S3/GCS/Azure Blob.
