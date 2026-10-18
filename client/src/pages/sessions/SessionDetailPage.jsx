@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { sessionApi } from '../../api/services';
 import ProgressNotes from '../../components/sessions/ProgressNotes';
 import AvailabilityOverlapPicker from '../../components/sessions/AvailabilityOverlapPicker';
+import ReviewModal from '../../components/common/ReviewModal';
 
 const STATUS_CONFIG = {
   pending:   { label: 'Pending',   emoji: '⏳', color: 'var(--warning-400)' },
@@ -29,6 +30,8 @@ const SessionDetailPage = () => {
   const [updatingStatus, setUpdatingStatus] = useState(false);
   const [copied,       setCopied]       = useState(false);
   const [activeTab,    setActiveTab]    = useState('details');
+  const [reviewOpen,   setReviewOpen]   = useState(false);
+  const [reviewDone,   setReviewDone]   = useState(false);
 
   if (loading) return <div className="loading-page"><div className="spinner" /><p>Loading session...</p></div>;
   if (error)   return <div className="page"><div className="container"><div className="alert alert-error">{error} <Link to="/sessions">← Back</Link></div></div></div>;
@@ -246,9 +249,38 @@ const SessionDetailPage = () => {
 
             {/* Post-completion review prompt */}
             {session.status === 'completed' && isParticipant && otherParticipant && (
-              <div className="alert alert-success">
-                🎉 Session completed! Leave a review for <strong>{otherParticipant.name}</strong>.{' '}
-                <em>(Review feature coming in Member D's module)</em>
+              <div className="card" style={{ background: 'linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(52,211,153,0.04) 100%)', border: '1px solid rgba(16,185,129,0.25)' }}>
+                <h3 style={{ marginBottom: '0.75rem', fontSize: '1rem', color: 'var(--success-400)' }}>
+                  🎉 Session Completed!
+                </h3>
+                {reviewDone ? (
+                  <div className="alert alert-success" style={{ margin: 0 }}>
+                    ✅ You've submitted your review for <strong>{otherParticipant.name}</strong>. Thank you!
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
+                    <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                      How was your experience with <strong style={{ color: 'var(--text-primary)' }}>{otherParticipant.name}</strong>?
+                      Your review helps build trust in the community.
+                    </p>
+                    <button
+                      id="open-review-btn"
+                      className="btn btn-primary btn-sm"
+                      onClick={() => setReviewOpen(true)}
+                    >
+                      ⭐ Leave a Review
+                    </button>
+                  </div>
+                )}
+
+                <ReviewModal
+                  isOpen={reviewOpen}
+                  onClose={() => setReviewOpen(false)}
+                  sessionId={id}
+                  revieweeId={otherParticipant._id}
+                  revieweeName={otherParticipant.name}
+                  onSuccess={() => { setReviewOpen(false); setReviewDone(true); }}
+                />
               </div>
             )}
           </div>

@@ -235,7 +235,7 @@ Update `server/src/middleware/upload.js` to change storage configuration.
 | Identity & Profile | Member A | User | Scaffold ✅ |
 | Discovery & Matching | Member B | Match | Scaffold ✅ |
 | **Sessions & Chat** | **Member C** | **Session, SessionNote, ChatMessage** | **Complete ✅** |
-| Trust & Admin | Member D | Review | Scaffold ✅ |
+| **Trust & Admin** | **Member D** | **Review** | **Complete ✅** |
 
 ---
 

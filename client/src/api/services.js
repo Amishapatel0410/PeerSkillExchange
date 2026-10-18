@@ -30,6 +30,7 @@ export const sessionApi = {
   getNotes:        (id)          => api.get(`/sessions/${id}/notes`),
   toggleMilestone: (id, noteId, milestoneId, completed) =>
     api.patch(`/sessions/${id}/notes/${noteId}/milestone`, { milestoneId, completed }),
+  adminGetAll:     (params)      => api.get('/sessions/admin/all', { params }),
 };
 
 // Chat
@@ -49,4 +50,5 @@ export const reminderApi = {
 export const reviewApi = {
   create:        (data)   => api.post('/reviews', data),
   getForUser:    (userId) => api.get(`/reviews/user/${userId}`),
+  adminGetAll:   (params) => api.get('/reviews/admin/all', { params }),
 };

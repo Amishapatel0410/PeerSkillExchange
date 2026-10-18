@@ -14,6 +14,8 @@ import SessionsDashboard from './pages/sessions/SessionsDashboard';
 import RequestSessionPage from './pages/sessions/RequestSessionPage';
 import SessionDetailPage from './pages/sessions/SessionDetailPage';
 import ChatPage          from './pages/chat/ChatPage';
+import ProfilePage       from './pages/profile/ProfilePage';
+import AdminDashboard    from './pages/admin/AdminDashboard';
 
 const App = () => (
   <BrowserRouter>
@@ -37,6 +39,12 @@ const App = () => (
 
           {/* Chat — Module 3 */}
           <Route path="/chat/:matchId"    element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
+
+          {/* Profile — Module 4 */}
+          <Route path="/profile/:id"      element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+
+          {/* Admin — Module 4 */}
+          <Route path="/admin"            element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

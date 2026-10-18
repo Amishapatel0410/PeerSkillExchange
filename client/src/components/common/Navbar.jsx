@@ -49,12 +49,21 @@ const Navbar = () => {
         <div className="navbar-actions">
           {user ? (
             <>
-              <div className="navbar-user">
+              {user.isAdmin && (
+                <NavLink to="/admin" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+                  🛡️ Admin
+                </NavLink>
+              )}
+              <NavLink
+                to={`/profile/${user._id}`}
+                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+              >
                 <div className="avatar avatar-sm avatar-placeholder" aria-label={user.name}>
                   {initials}
                 </div>
-                <span style={{ color: 'var(--text-primary)' }}>{user.name.split(' ')[0]}</span>
-              </div>
+                {user.name.split(' ')[0]}
+              </NavLink>
               <button id="logout-btn" className="btn btn-ghost btn-sm" onClick={logout}>
                 Sign out
               </button>

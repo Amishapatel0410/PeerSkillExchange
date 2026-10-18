@@ -103,7 +103,9 @@ const MatchesPage = () => {
                 {/* Info */}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.3rem' }}>
-                    <h3 style={{ fontSize: '1rem', margin: 0 }}>{otherUser.name}</h3>
+                    <Link to={`/profile/${otherUser._id}`} style={{ color: 'var(--text-primary)', fontWeight: '700', fontSize: '1rem' }}>
+                      {otherUser.name}
+                    </Link>
                     <span className={`badge ${cfg.cls}`}>{cfg.emoji} {cfg.label}</span>
                   </div>
                   <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
